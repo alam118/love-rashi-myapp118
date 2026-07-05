@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Rashifal - प्रेम राशिफल ❤️</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <!-- ===== LOADING SCREEN ===== -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="loading-heart-container">
+                    <i class="fas fa-heart loading-heart"></i>
+                    <div class="heart-particles">
+                        <span>❤️</span>
+                        <span>💕</span>
+                        <span>💖</span>
+                        <span>💗</span>
+                    </div>
+                </div>
+                <h1>Love <span>Rashifal</span></h1>
+                <p class="loading-subtitle">✨ आपका प्रेम मार्गदर्शक ✨</p>
+            </div>
+            <div class="loading-progress-container">
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill"></div>
+                </div>
+                <p class="loading-text" id="loadingText">🌟 तैयार हो रहा है...</p>
+            </div>
+            <div class="loading-stars">
+                <span>⭐</span>
+                <span>✨</span>
+                <span>🌟</span>
+                <span>⭐</span>
+                <span>✨</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN APP ===== -->
+    <div id="mainApp" style="display: none;">
+        <!-- Particle Background -->
+        <div id="particles-js"></div>
+
+        <!-- Floating Hearts -->
+        <div class="floating-hearts" id="floatingHearts"></div>
+
+        <div class="container">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="top-left">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="lang-toggle" id="langToggle" aria-label="Language">
+                        <i class="fas fa-language"></i>
+                        <span id="langLabel">हिंदी</span>
+                    </button>
+                </div>
+                <div class="top-right">
+                    <button class="share-btn-top" id="shareBtnTop" aria-label="Share">
+                        <i class="fas fa-share-alt"></i>
+                        <span id="shareTopText">शेयर</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Header -->
+            <header class="header">
+                <div class="logo">
+                    <div class="logo-heart">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h1>Love <span>Rashifal</span></h1>
+                </div>
+                <p class="tagline" id="tagline">❤️ जानें अपने दिल के राज़ ❤️</p>
+            </header>
+
+            <!-- Today's Date -->
+            <div class="date-card">
+                <i class="fas fa-calendar-alt"></i>
+                <span id="currentDate"></span>
+                <div class="date-badge">
+                    <i class="fas fa-sun"></i>
+                    <span id="todayDay">आज</span>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ff6b9d, #ff3366);">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label" id="statZodiac">राशियाँ</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f7dc6f, #f1c40f);">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="liveAccuracy">98<span style="font-size:0.7rem;">%</span></span>
+                        <span class="stat-label" id="statAccuracy">सटीकता</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="liveUsers">10K<span style="font-size:0.7rem;">+</span></span>
+                        <span class="stat-label" id="statUsers">खुश यूज़र्स</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features-section">
+                <h2 class="section-title" id="featuresTitle">✨ चुनें अपना फीचर</h2>
+                <div class="features-grid" id="featuresGrid">
+                    <div class="feature-card" data-feature="horoscope" onclick="showFeature('horoscope')">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #ff6b9d, #ff3366);">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="feature-info">
+                            <h3 id="fHoroscope">🌟 दैनिक राशिफल</h3>
+                            <p id="fHoroscopeDesc">आज का प्रेम</p>
+                        </div>
+                        <div class="feature-active-indicator"></div>
+                    </div>
+
+                    <div class="feature-card" data-feature="match" onclick="showFeature('match')">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #f7dc6f, #f1c40f);">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="feature-info">
+                            <h3 id="fMatch">💑 मैच राशि</h3>
+                            <p id="fMatchDesc">राशि मिलान</p>
+                        </div>
+                        <div class="feature-active-indicator"></div>
+                    </div>
+
+                    <div class="feature-card" data-feature="mood" onclick="showFeature('mood')">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <div class="feature-info">
+                            <h3 id="fMood">😊 मूड स्कोर</h3>
+                            <p id="fMoodDesc">आज का मूड</p>
+                        </div>
+                        <div class="feature-active-indicator"></div>
+                    </div>
+
+                    <div class="feature-card" data-feature="love" onclick="showFeature('love')">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="feature-info">
+                            <h3 id="fLove">💕 लव स्कोर</h3>
+                            <p id="fLoveDesc">प्रेम ऊर्जा</p>
+                        </div>
+                        <div class="feature-active-indicator"></div>
+                    </div>
+
+                    <div class="feature-card" data-feature="advice" onclick="showFeature('advice')">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="feature-info">
+                            <h3 id="fAdvice">💡 आज की सलाह</h3>
+                            <p id="fAdviceDesc">प्रेम टिप्स</p>
+                        </div>
+                        <div class="feature-active-indicator"></div>
+                    </div>
+
+                    <div class="feature-card" data-feature="lucky" onclick="showFeature('lucky')">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #e67e22, #d35400);">
+                            <i class="fas fa-dice"></i>
+                        </div>
+                        <div class="feature-info">
+                            <h3 id="fLucky">🎲 लकी नंबर</h3>
+                            <p id="fLuckyDesc">भाग्यशाली</p>
+                        </div>
+                        <div class="feature-active-indicator"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Result Panel -->
+            <div class="result-panel" id="resultPanel">
+                <!-- Zodiac Selector -->
+                <div class="zodiac-selector" id="zodiacSelector">
+                    <div class="selector-header">
+                        <i class="fas fa-arrow-down"></i>
+                        <p id="selectZodiacText">✨ अपनी राशि चुनें</p>
+                    </div>
+                    <div class="zodiac-grid" id="zodiacGrid">
+                        <div class="zodiac-item" data-sign="aries">♈ <span>मेष</span></div>
+                        <div class="zodiac-item" data-sign="taurus">♉ <span>वृषभ</span></div>
+                        <div class="zodiac-item" data-sign="gemini">♊ <span>मिथुन</span></div>
+                        <div class="zodiac-item" data-sign="cancer">♋ <span>कर्क</span></div>
+                        <div class="zodiac-item" data-sign="leo">♌ <span>सिंह</span></div>
+                        <div class="zodiac-item" data-sign="virgo">♍ <span>कन्या</span></div>
+                        <div class="zodiac-item" data-sign="libra">♎ <span>तुला</span></div>
+                        <div class="zodiac-item" data-sign="scorpio">♏ <span>वृश्चिक</span></div>
+                        <div class="zodiac-item" data-sign="sagittarius">♐ <span>धनु</span></div>
+                        <div class="zodiac-item" data-sign="capricorn">♑ <span>मकर</span></div>
+                        <div class="zodiac-item" data-sign="aquarius">♒ <span>कुंभ</span></div>
+                        <div class="zodiac-item" data-sign="pisces">♓ <span>मीन</span></div>
+                    </div>
+                </div>
+
+                <!-- Result Display -->
+                <div class="result-display" id="resultDisplay">
+                    <div class="result-placeholder" id="resultPlaceholder">
+                        <div class="placeholder-illustration">
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <h3 id="placeholderTitle">✨ आपका परिणाम</h3>
+                        <p id="placeholderText">राशि चुनें और फीचर चुनें</p>
+                    </div>
+                    <div class="result-content" id="resultContent" style="display: none;"></div>
+                </div>
+
+                <!-- Share Section -->
+                <div class="share-section" id="shareSection" style="display: none;">
+                    <button class="share-main-btn" id="shareResultBtn">
+                        <i class="fas fa-share-alt"></i>
+                        <span id="shareBtnText">शेयर करें</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="share-dropdown" id="shareDropdown">
+                        <button class="share-platform" data-platform="whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </button>
+                        <button class="share-platform" data-platform="telegram">
+                            <i class="fab fa-telegram"></i>
+                            <span>Telegram</span>
+                        </button>
+                        <button class="share-platform" data-platform="twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </button>
+                        <button class="share-platform" data-platform="copy">
+                            <i class="fas fa-copy"></i>
+                            <span>कॉपी</span>
+                        </button>
+                        <button class="share-platform" data-platform="instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Inspiration -->
+            <div class="inspiration-card" id="inspirationCard">
+                <div class="inspiration-icon">
+                    <i class="fas fa-quote-right"></i>
+                </div>
+                <div class="inspiration-content">
+                    <p id="inspirationText">"प्यार वह ताकत है जो दिलों को जोड़ती है और आत्माओं को ऊपर उठाती है ❤️"</p>
+                    <span id="inspirationSource">- प्रेम राशिफल</span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <i class="fas fa-heart" style="color: var(--primary);"></i>
+                        <span id="footerText">Love Rashifal - हर दिन सटीक प्रेम राशिफल</span>
+                    </div>
+                    <div class="footer-credit">
+                        <span id="footerCredit">❤️ Made with love</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">
+            <i class="fas fa-check-circle" id="toastIcon"></i>
+        </div>
+        <span id="toastMessage">Copied!</span>
+    </div>
+
+    <!-- Particles JS -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+</body>
+</html>
