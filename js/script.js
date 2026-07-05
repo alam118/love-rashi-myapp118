@@ -2,7 +2,22 @@
 // Love Rashifal - Complete Application
 // =========================================
 
-// ===== ZODIAC DATA =====
+// =========================================
+// APP CONFIGURATION - UPDATE YOUR LINKS HERE
+// =========================================
+
+const APP_CONFIG = {
+    // 🔴 IMPORTANT: Replace these with your actual links
+    playStoreLink: 'https://play.google.com/store/apps/details?id=com.app.offlinegame',
+
+    appName: 'Love Rashifal',
+    tagline: '❤️ हर दिन सटीक प्रेम राशिफल ❤️'
+};
+
+// =========================================
+// ZODIAC DATA
+// =========================================
+
 const zodiacData = {
     aries: {
         name: { hi: 'मेष', en: 'Aries' },
@@ -318,7 +333,10 @@ const zodiacData = {
     }
 };
 
-// ===== MATCH RASHI DATA =====
+// =========================================
+// MATCH RASHI DATA
+// =========================================
+
 const matchRashi = {
     aries: { best: ['leo', 'sagittarius'], good: ['gemini', 'libra'], avoid: ['cancer', 'capricorn'] },
     taurus: { best: ['virgo', 'capricorn'], good: ['cancer', 'pisces'], avoid: ['leo', 'aquarius'] },
@@ -334,7 +352,10 @@ const matchRashi = {
     pisces: { best: ['cancer', 'scorpio'], good: ['taurus', 'capricorn'], avoid: ['gemini', 'sagittarius'] }
 };
 
-// ===== INSPIRATIONS =====
+// =========================================
+// INSPIRATIONS
+// =========================================
+
 const inspirations = {
     hi: [
         '"प्यार वह ताकत है जो दिलों को जोड़ती है और आत्माओं को ऊपर उठाती है ❤️"',
@@ -352,14 +373,20 @@ const inspirations = {
     ]
 };
 
-// ===== APP STATE =====
+// =========================================
+// APP STATE
+// =========================================
+
 let currentFeature = 'horoscope';
 let currentSign = null;
 let currentLang = 'hi';
 let currentTheme = 'dark';
 let currentResultText = '';
 
-// ===== DOM ELEMENTS =====
+// =========================================
+// DOM ELEMENTS
+// =========================================
+
 const loadingScreen = document.getElementById('loadingScreen');
 const progressFill = document.querySelector('.progress-fill');
 const loadingText = document.getElementById('loadingText');
@@ -382,7 +409,10 @@ const toastIcon = document.getElementById('toastIcon');
 const inspirationText = document.getElementById('inspirationText');
 const inspirationSource = document.getElementById('inspirationSource');
 
-// ===== LOADING =====
+// =========================================
+// LOADING
+// =========================================
+
 function startLoading() {
     let progress = 0;
     const steps = [
@@ -419,7 +449,10 @@ function startLoading() {
     }, 40);
 }
 
-// ===== TOAST =====
+// =========================================
+// TOAST
+// =========================================
+
 function showToast(message, icon = 'fa-check-circle') {
     toastMessage.textContent = message;
     toastIcon.className = `fas ${icon}`;
@@ -427,7 +460,10 @@ function showToast(message, icon = 'fa-check-circle') {
     setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
-// ===== FORMAT DATE =====
+// =========================================
+// FORMAT DATE
+// =========================================
+
 function formatDate(lang) {
     const now = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -440,12 +476,18 @@ function getDayName(lang) {
     return now.toLocaleDateString(lang === 'hi' ? 'hi-IN' : 'en-US', options);
 }
 
-// ===== RANDOM HELPER =====
+// =========================================
+// RANDOM HELPER
+// =========================================
+
 function getRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
-// ===== GET LOVE SCORE =====
+// =========================================
+// GET LOVE SCORE
+// =========================================
+
 function getLoveScore(sign) {
     const scores = {
         aries: 85, taurus: 88, gemini: 80, cancer: 90,
@@ -457,7 +499,10 @@ function getLoveScore(sign) {
     return Math.min(99, Math.max(60, base + variation));
 }
 
-// ===== GET MOOD =====
+// =========================================
+// GET MOOD
+// =========================================
+
 function getMood(sign) {
     const moods = [
         { emoji: '😊', text: { hi: 'खुश', en: 'Happy' }, score: 85 },
@@ -472,7 +517,10 @@ function getMood(sign) {
     return getRandom(moods);
 }
 
-// ===== GET LUCKY NUMBER =====
+// =========================================
+// GET LUCKY NUMBER
+// =========================================
+
 function getLuckyNumber(sign) {
     const numbers = {
         aries: 7, taurus: 3, gemini: 5, cancer: 2,
@@ -483,7 +531,10 @@ function getLuckyNumber(sign) {
     return base + Math.floor(Math.random() * 3);
 }
 
-// ===== GET MATCH RASHI =====
+// =========================================
+// GET MATCH RASHI
+// =========================================
+
 function getMatchRashi(sign, lang) {
     const data = matchRashi[sign];
     if (!data) return null;
@@ -495,7 +546,10 @@ function getMatchRashi(sign, lang) {
     return { best, good, avoid };
 }
 
-// ===== SHOW FEATURE =====
+// =========================================
+// SHOW FEATURE
+// =========================================
+
 function showFeature(feature) {
     currentFeature = feature;
     
@@ -506,7 +560,6 @@ function showFeature(feature) {
         }
     });
     
-    // Reset if sign was selected
     if (currentSign) {
         generateResult(currentSign, currentFeature, currentLang);
     } else {
@@ -529,11 +582,13 @@ function showFeature(feature) {
             currentLang === 'hi' ? 'राशि चुनें और फीचर चुनें' : 'Select zodiac and feature';
     }
     
-    // Scroll to result
     document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ===== GENERATE RESULT =====
+// =========================================
+// GENERATE RESULT
+// =========================================
+
 function generateResult(sign, feature, lang) {
     const data = zodiacData[sign];
     if (!data) return;
@@ -563,7 +618,7 @@ function generateResult(sign, feature, lang) {
                     </div>
                 </div>
             `;
-            shareText = `🌟 ${symbol} ${signName} का आज का प्रेम राशिफल 🌟\n\n${prediction}\n\n💫 सलाह: ${advice}\n\n❤️ Love Rashifal`;
+            shareText = `🌟 ${symbol} ${signName} का आज का प्रेम राशिफल 🌟\n\n${prediction}\n\n💫 सलाह: ${advice}`;
             break;
             
         case 'match':
@@ -580,7 +635,7 @@ function generateResult(sign, feature, lang) {
                         </div>
                     </div>
                 `;
-                shareText = `💑 ${symbol} ${signName} के लिए मैच राशि 💑\n\n✅ सर्वोत्तम: ${match.best.join(', ')}\n👍 अच्छी: ${match.good.join(', ')}\n❌ टालें: ${match.avoid.join(', ')}\n\n❤️ Love Rashifal`;
+                shareText = `💑 ${symbol} ${signName} के लिए मैच राशि 💑\n\n✅ सर्वोत्तम: ${match.best.join(', ')}\n👍 अच्छी: ${match.good.join(', ')}\n❌ टालें: ${match.avoid.join(', ')}`;
             }
             break;
             
@@ -598,7 +653,7 @@ function generateResult(sign, feature, lang) {
                     </div>
                 </div>
             `;
-            shareText = `😊 ${symbol} ${signName} का आज का मूड 😊\n\n${mood.emoji} ${mood.text.hi} - ${mood.score}%\n\n✨ सकारात्मक ऊर्जा!\n\n❤️ Love Rashifal`;
+            shareText = `😊 ${symbol} ${signName} का आज का मूड 😊\n\n${mood.emoji} ${mood.text.hi} - ${mood.score}%\n\n✨ सकारात्मक ऊर्जा!`;
             break;
             
         case 'love':
@@ -621,7 +676,7 @@ function generateResult(sign, feature, lang) {
                     </div>
                 </div>
             `;
-            shareText = `💕 ${symbol} ${signName} का लव स्कोर 💕\n\n${loveScore}%\n${loveStatus}\n\n❤️ Love Rashifal`;
+            shareText = `💕 ${symbol} ${signName} का लव स्कोर 💕\n\n${loveScore}%\n${loveStatus}`;
             break;
             
         case 'advice':
@@ -657,7 +712,7 @@ function generateResult(sign, feature, lang) {
                     </div>
                 </div>
             `;
-            shareText = `💡 ${symbol} ${signName} के लिए आज की सलाह 💡\n\n💌 ${tip}\n\n🌟 ${adviceText}\n\n❤️ Love Rashifal`;
+            shareText = `💡 ${symbol} ${signName} के लिए आज की सलाह 💡\n\n💌 ${tip}\n\n🌟 ${adviceText}`;
             break;
             
         case 'lucky':
@@ -680,18 +735,16 @@ function generateResult(sign, feature, lang) {
                     </div>
                 </div>
             `;
-            shareText = `🎲 ${symbol} ${signName} का आज का लकी नंबर 🎲\n\nलकी नंबर: ${luckyNum}\nभाग्यशाली रंग: ${luckyColor}\nशुभ समय: ${luckyTime}\n\n❤️ Love Rashifal`;
+            shareText = `🎲 ${symbol} ${signName} का आज का लकी नंबर 🎲\n\nलकी नंबर: ${luckyNum}\nभाग्यशाली रंग: ${luckyColor}\nशुभ समय: ${luckyTime}`;
             break;
     }
     
-    // Update UI
     resultPlaceholder.style.display = 'none';
     resultContent.style.display = 'block';
     resultContent.innerHTML = html;
     shareSection.style.display = 'block';
     currentResultText = shareText;
     
-    // Update active zodiac
     zodiacItems.forEach(item => {
         item.classList.remove('active');
         if (item.dataset.sign === sign) {
@@ -700,7 +753,10 @@ function generateResult(sign, feature, lang) {
     });
 }
 
-// ===== SELECT ZODIAC =====
+// =========================================
+// SELECT ZODIAC
+// =========================================
+
 function selectZodiac(sign) {
     currentSign = sign;
     
@@ -716,49 +772,104 @@ function selectZodiac(sign) {
     }
 }
 
-// ===== SHARE RESULT =====
+// =========================================
+// SHARE RESULT (UPDATED WITH PLAY STORE LINK)
+// =========================================
+
 function shareResult(platform) {
     if (!currentResultText) {
         showToast('❌ पहले राशिफल चेक करें', 'fa-exclamation-circle');
         return;
     }
     
-    const text = currentResultText + '\n\n📱 ' + window.location.href;
+    const appLink = APP_CONFIG.playStoreLink;
+    const appName = APP_CONFIG.appName;
+    const tagline = APP_CONFIG.tagline;
+    
+    // Create share text with Play Store link
+    const fullShareText = `${currentResultText}\n\n📱 ${appName} ऐप डाउनलोड करें:\n${appLink}\n\n${tagline}`;
+    
+    // For Instagram - copy with special formatting
+    if (platform === 'instagram') {
+        navigator.clipboard.writeText(fullShareText)
+            .then(() => showToast('📋 कॉपी किया! Instagram पर पेस्ट करें', 'fa-copy'))
+            .catch(() => showToast('❌ कॉपी नहीं हुआ', 'fa-exclamation-circle'));
+        return;
+    }
+    
+    // For copy - use Play Store link
+    if (platform === 'copy') {
+        navigator.clipboard.writeText(fullShareText)
+            .then(() => showToast('📋 कॉपी किया गया!', 'fa-copy'))
+            .catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = fullShareText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('📋 कॉपी किया गया!', 'fa-copy');
+            });
+        return;
+    }
+    
+    // For WhatsApp, Telegram, Twitter - encode and open
+    const encodedText = encodeURIComponent(fullShareText);
     
     switch(platform) {
         case 'whatsapp':
-            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+            window.open(`https://api.whatsapp.com/send?text=${encodedText}`, '_blank');
             break;
         case 'telegram':
-            window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(currentResultText)}`, '_blank');
+            window.open(`https://t.me/share/url?url=${encodeURIComponent(appLink)}&text=${encodeURIComponent(currentResultText)}`, '_blank');
             break;
         case 'twitter':
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
-            break;
-        case 'instagram':
-            navigator.clipboard.writeText(text)
-                .then(() => showToast('📋 कॉपी किया! Instagram पर पेस्ट करें', 'fa-copy'))
-                .catch(() => showToast('❌ कॉपी नहीं हुआ', 'fa-exclamation-circle'));
-            break;
-        case 'copy':
-            navigator.clipboard.writeText(text)
-                .then(() => showToast('📋 कॉपी किया गया!', 'fa-copy'))
-                .catch(() => {
-                    const textArea = document.createElement('textarea');
-                    textArea.value = text;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                    showToast('📋 कॉपी किया गया!', 'fa-copy');
-                });
+            window.open(`https://twitter.com/intent/tweet?text=${encodedText}`, '_blank');
             break;
     }
     
-    shareDropdown.classList.remove('show');
+    showToast(`✅ ${platform.charAt(0).toUpperCase() + platform.slice(1)} पर शेयर किया!`, 'fa-share-alt');
 }
 
-// ===== THEME TOGGLE =====
+// =========================================
+// SHARE APP (UPDATED)
+// =========================================
+
+function shareApp() {
+    const appLink = APP_CONFIG.playStoreLink;
+    const appName = APP_CONFIG.appName;
+    const tagline = APP_CONFIG.tagline;
+    
+    const shareData = {
+        title: appName,
+        text: `❤️ ${appName} - ${tagline}\n\n📱 ऐप डाउनलोड करें:\n${appLink}`,
+        url: appLink
+    };
+
+    if (navigator.share) {
+        navigator.share(shareData)
+            .then(() => showToast('❤️ शेयर किया!', 'fa-heart'))
+            .catch(() => {});
+    } else {
+        const text = `${shareData.text}`;
+        navigator.clipboard.writeText(text)
+            .then(() => showToast('📋 कॉपी किया गया!', 'fa-copy'))
+            .catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('📋 कॉपी किया गया!', 'fa-copy');
+            });
+    }
+}
+
+// =========================================
+// THEME TOGGLE
+// =========================================
+
 function toggleTheme() {
     currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', currentTheme);
@@ -766,7 +877,10 @@ function toggleTheme() {
     showToast(currentTheme === 'dark' ? '🌙 डार्क मोड' : '☀️ लाइट मोड', 'fa-adjust');
 }
 
-// ===== LANGUAGE TOGGLE =====
+// =========================================
+// LANGUAGE TOGGLE
+// =========================================
+
 function toggleLanguage() {
     currentLang = currentLang === 'hi' ? 'en' : 'hi';
     langLabel.textContent = currentLang === 'hi' ? 'हिंदी' : 'English';
@@ -777,7 +891,10 @@ function toggleLanguage() {
     showToast(currentLang === 'hi' ? '🇮🇳 हिंदी' : '🇬🇧 English', 'fa-language');
 }
 
-// ===== UPDATE LANGUAGE =====
+// =========================================
+// UPDATE LANGUAGE
+// =========================================
+
 function updateLanguage(lang) {
     const texts = {
         fHoroscope: lang === 'hi' ? '🌟 दैनिक राशिफल' : '🌟 Daily Horoscope',
@@ -812,7 +929,6 @@ function updateLanguage(lang) {
         if (el) el.textContent = texts[key];
     });
     
-    // Update zodiac names
     document.querySelectorAll('.zodiac-item').forEach(item => {
         const sign = item.dataset.sign;
         if (sign && zodiacData[sign]) {
@@ -821,7 +937,6 @@ function updateLanguage(lang) {
         }
     });
     
-    // Update share platform labels
     document.querySelectorAll('.share-platform').forEach(btn => {
         const platform = btn.dataset.platform;
         const labels = {
@@ -837,17 +952,18 @@ function updateLanguage(lang) {
         }
     });
     
-    // Update inspiration
     const insp = getRandom(inspirations[lang] || inspirations.hi);
     inspirationText.textContent = insp;
     inspirationSource.textContent = lang === 'hi' ? '- प्रेम राशिफल' : '- Love Rashifal';
     
-    // Update date
     currentDateDisplay.textContent = formatDate(lang);
     todayDay.textContent = getDayName(lang);
 }
 
-// ===== CREATE FLOATING HEARTS =====
+// =========================================
+// CREATE FLOATING HEARTS
+// =========================================
+
 function createFloatingHearts() {
     const container = document.getElementById('floatingHearts');
     const emojis = ['❤️', '💕', '💖', '💗', '❤️‍🔥', '💝'];
@@ -863,7 +979,10 @@ function createFloatingHearts() {
     }
 }
 
-// ===== INIT PARTICLES =====
+// =========================================
+// INIT PARTICLES
+// =========================================
+
 function initParticles() {
     if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
@@ -887,7 +1006,10 @@ function initParticles() {
     }
 }
 
-// ===== INIT APP =====
+// =========================================
+// INIT APP
+// =========================================
+
 function initApp() {
     createFloatingHearts();
     initParticles();
@@ -895,31 +1017,31 @@ function initApp() {
     showFeature('horoscope');
     
     console.log('❤️ Love Rashifal v3.0');
+    console.log('📱 Play Store Link:', APP_CONFIG.playStoreLink);
     console.log('✨ Features: Horoscope, Match Rashi, Mood Score, Love Score, Advice, Lucky Number');
 }
 
-// ===== EVENT LISTENERS =====
-// Feature cards
+// =========================================
+// EVENT LISTENERS
+// =========================================
+
 featureCards.forEach(card => {
     card.addEventListener('click', function() {
         showFeature(this.dataset.feature);
     });
 });
 
-// Zodiac selection
 zodiacItems.forEach(item => {
     item.addEventListener('click', function() {
         selectZodiac(this.dataset.sign);
     });
 });
 
-// Share button
 shareResultBtn.addEventListener('click', function(e) {
     e.stopPropagation();
     shareDropdown.classList.toggle('show');
 });
 
-// Share platforms
 document.querySelectorAll('.share-platform').forEach(btn => {
     btn.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -927,18 +1049,17 @@ document.querySelectorAll('.share-platform').forEach(btn => {
     });
 });
 
-// Close share dropdown
 document.addEventListener('click', function() {
     shareDropdown.classList.remove('show');
 });
 
-// Theme toggle
 themeToggle.addEventListener('click', toggleTheme);
 
-// Language toggle
 langToggle.addEventListener('click', toggleLanguage);
 
-// Keyboard shortcuts
+// Top share button
+document.getElementById('shareBtnTop').addEventListener('click', shareApp);
+
 document.addEventListener('keydown', (e) => {
     if (e.key === 't' || e.key === 'T') {
         e.preventDefault();
@@ -954,5 +1075,8 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// ===== START =====
+// =========================================
+// START
+// =========================================
+
 startLoading();
